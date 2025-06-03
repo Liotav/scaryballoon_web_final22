@@ -23,20 +23,21 @@ def add_score():
     data = request.get_json()
     if not all(k in data for k in ("name", "stage", "time")):
         return jsonify({"error": "Invalid data"}), 400
+
     scores = load_scores()
     scores.append(data)
+    scores = sorted(scores, key=lambda x: (-x["stage"], x["time"]))[:5]
     save_scores(scores)
-    return jsonify({"message": "Score saved"}), 200
+    return jsonify({"message": "Score added"}), 200
 
 @app.route("/score", methods=["GET"])
 def get_scores():
     scores = load_scores()
-    scores = sorted(scores, key=lambda x: (x["stage"], -x["time"]), reverse=True)
-    return jsonify(scores[:5])
+    return jsonify(scores)
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

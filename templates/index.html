@@ -2,24 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Scary Balloon Game</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: black;
-        }
-        canvas {
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
+    <title>Scary Balloon Ranking</title>
 </head>
-<body>
-    <h1 style="color: white; text-align: center;">Loading Scary Balloon...</h1>
+<body style="background-color:black; color:white; font-family:Courier;">
+    <h1>🩸 Top 5 Players 🩸</h1>
+    <ul id="ranking"></ul>
+
     <script>
-        window.onload = function() {
-            window.location.href = "/game";
-        }
+        fetch("/score")
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById("ranking");
+                data.forEach(player => {
+                    const item = document.createElement("li");
+                    item.textContent = `${player.name} - Stage ${player.stage} - ${player.time}s`;
+                    list.appendChild(item);
+                });
+            });
     </script>
 </body>
 </html>
