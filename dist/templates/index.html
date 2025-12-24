@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scary Balloon Ranking</title>
+</head>
+<body style="background-color:black; color:white; font-family:Courier;">
+    <h1>🩸 Top 5 Players 🩸</h1>
+    <ul id="ranking"></ul>
+
+    <script>
+        fetch("/score")
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById("ranking");
+                data.forEach(player => {
+                    const item = document.createElement("li");
+                    item.textContent = `${player.name} - Stage ${player.stage} - ${player.time}s`;
+                    list.appendChild(item);
+                });
+            });
+    </script>
+</body>
+</html>

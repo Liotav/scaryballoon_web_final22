@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scary Balloon - Results</title>
+</head>
+<body style="text-align: center;">
+    <h1>Game Over</h1>
+    <p><strong>{{ nome }}</strong> reached Stage <strong>{{ stage }}</strong> in <strong>{{ tempo }}s</strong></p>
+
+    <h2>🏆 TOP 5 SCORES</h2>
+    <table style="margin: 0 auto; text-align: left;">
+        <tr><th>Name</th><th>Stage</th><th>Time</th></tr>
+        {% for score in top_scores %}
+            <tr>
+                <td>{{ score[0] }}</td>
+                <td>{{ score[1] }}</td>
+                <td>{{ score[2] }}s</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/">Play Again</a>
+</body>
+</html>

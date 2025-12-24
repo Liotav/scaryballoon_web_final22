@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scary Balloon - Game</title>
+</head>
+<body style="text-align: center;">
+    <h1>Game is Running...</h1>
+    <p>Simulação do jogo. Após o fim, ele envia os dados pro servidor.</p>
+    <form action="/result" method="POST">
+        <input type="text" name="nome" placeholder="Enter your name" required>
+        <input type="hidden" name="stage" value="7">
+        <input type="hidden" name="tempo" value="28.5">
+        <button type="submit">Simular Fim do Jogo</button>
+    </form>
+</body>
+</html>
