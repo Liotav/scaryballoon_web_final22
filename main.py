@@ -93,13 +93,14 @@ while running:
         mostrar_texto("Click the balloon to start", 350)
         balao_start_rect = screen.blit(img_balao_start, (375, 370))
         screen.blit(logo_img, (630, 545))
-
+        
     elif digitando_nome:
         mostrar_texto("Enter your name to start", 180, fonte=big_font)
         pygame.draw.rect(screen, input_color, input_box, 2)
         nome_img = font.render(nome_jogador, True, WHITE)
         screen.blit(nome_img, (input_box.x + 10, input_box.y + 10))
-        mostrar_texto("Press Enter to start the game", 400, fonte=small_font)
+        mostrar_texto("Click the balloon.", 400)
+        balao_restart_rect = screen.blit(img_balao_restart, (355, 430))
         screen.blit(logo_img, (630, 545))
 
     elif exibir_creditos:
@@ -146,20 +147,16 @@ while running:
         if tela_inicio and event.type == pygame.MOUSEBUTTONDOWN:
             if balao_start_rect.collidepoint(event.pos):
                 tela_inicio = False
-                digitando_nome = True
+                jogo_ativo = True
+                inicio_jogo = time.time()
+                stage = 1
+                gerar_baloes()
 
-        elif digitando_nome:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN and nome_jogador.strip() != "":
-                    digitando_nome = False
-                    jogo_ativo = True
-                    inicio_jogo = time.time()
-                    stage = 1
-                    gerar_baloes()
-                elif event.key == pygame.K_BACKSPACE:
-                    nome_jogador = nome_jogador[:-1]
-                else:
-                    if len(nome_jogador) < 10:
+                
+            elif event.key == pygame.K_BACKSPACE:
+                nome_jogador = nome_jogador[:-1]
+            else:
+                if len(nome_jogador) < 10:
                         nome_jogador += event.unicode
 
         elif jogo_ativo and not susto_ativo:
